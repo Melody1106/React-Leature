@@ -1,6 +1,7 @@
 import React from 'react'
 
 import data from '@/data/data/products.json'
+//import styles from '@/styles/table.module.css'
 console.log(data.products)
 
 export default function ProductTable() {
@@ -30,6 +31,39 @@ export default function ProductTable() {
           })}
         </tbody>
       </table>
+      <style jsx>
+        {`
+          table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+          }
+
+          td,
+          th {
+            border: 1px solid #ddd;
+            padding: 8px;
+          }
+
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+
+          tr:hover {
+            background-color: #ddd;
+          }
+
+          th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04aa6d;
+            color: white;
+          }
+        `}
+      </style>
     </>
   )
 }
