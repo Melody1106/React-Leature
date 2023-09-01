@@ -18,13 +18,15 @@ function BookList() {
   const [books, setBooks] = useState(initState)
   //1.2
   const toggleFav = (books, isbn) => {
-    const newBooks = books.map((v) => {
+    return books.map((v) => {
       //展開城市如果
       if (v.isbn === isbn) return { ...v, fav: !v.fav }
       else return { ...v }
     })
     //3
-    setBooks(newBooks)
+  }
+  const handleToggleFav = (isbn) => {
+    setBooks(toggleFav(books, isbn))
   }
 
   return (
@@ -51,7 +53,7 @@ function BookList() {
                     src={v.fav ? bookmarkIconFill : bookmarkIcon}
                     alt=""
                     onClick={() => {
-                      toggleFav(books, v.isbn)
+                      handleToggleFav(v.isbn)
                     }}
                   />
                 </td>
