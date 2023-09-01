@@ -1,3 +1,4 @@
+import { remove } from 'lodash'
 import { useState } from 'react'
 
 const initialProducts = [
@@ -31,6 +32,9 @@ export default function ShoppingCart() {
     })
     //3
   }
+  const remove = (products, id) => {
+    return products.filter((v) => v.id !== id)
+  }
 
   const handleIncrement = (id) => {
     setProducts(updateCount(products, id, 1))
@@ -38,6 +42,10 @@ export default function ShoppingCart() {
 
   const handleDecrement = (id) => {
     setProducts(updateCount(products, id, -1))
+  }
+
+  const handleRemove = (id) => {
+    setProducts(remove(products, id))
   }
 
   return (
@@ -54,7 +62,12 @@ export default function ShoppingCart() {
           </button>
           <button
             onClick={() => {
-              handleDecrement(product.id)
+              //如果商品數量出現1，再按一次就會把商品移除
+              if (product.count === 1) {
+                handleRemove(product.id)
+              } else {
+                handleDecrement(product.id)
+              }
             }}
           >
             –
