@@ -4,7 +4,10 @@ import { useState } from 'react'
 import styles from '@/styles/star.module.css'
 
 export default function Star() {
+  //click時的評分分數
   const [rating, setRating] = useState(0)
+  //mouse enter時的分數
+  const [hoverRating, setHoverRating] = useState(0)
 
   return (
     <>
@@ -22,9 +25,19 @@ export default function Star() {
                 onClick={() => {
                   setRating(score)
                 }}
+                onMouseEnter={() => {
+                  setHoverRating(score)
+                }}
+                onMouseLeave={() => {
+                  setHoverRating(0)
+                }}
               >
                 <span
-                  className={score <= rating ? styles['on'] : styles['off']}
+                  className={
+                    score <= rating || score <= hoverRating
+                      ? styles['on']
+                      : styles['off']
+                  }
                 >
                   &#9733;
                 </span>
