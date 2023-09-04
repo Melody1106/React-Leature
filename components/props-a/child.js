@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // export default function Child(props) {
 //   console.log(props) //{ text: '今天開始學', price: 100, hasNum: true }
@@ -22,4 +23,10 @@ export default function Child({ text, price, hasNum }) {
       <p>hasNum: {hasNum ? 'true' : 'false'}</p>
     </>
   )
+}
+//PropTypes 類別(class) Fields(欄位/成員)
+Child.propTypes = {
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  hasNum: PropTypes.bool.isRequired,
 }
