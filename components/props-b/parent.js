@@ -9,7 +9,7 @@ export default function Parent() {
     <>
       <h1>Parent</h1>
       <p>來自child-b的資料:{dataFromChild}</p>
-      <ChildA pData={pData} />
+      <ChildA dataFromChild={dataFromChild} />
       <ChildB setDataFromChild={setDataFromChild} />
     </>
   )
