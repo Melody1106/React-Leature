@@ -39,11 +39,16 @@ function BookList() {
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => {
+          {books.map((v) => {
+            const { isbn, title, author, fav } = v
             return (
               <BookItem
-                key={book.isbn}
-                book={book}
+                key={isbn}
+                //key加在map中的callback return最外圍元素
+                isbn={isbn}
+                title={title}
+                author={author}
+                fav={fav}
                 handleToggleFav={handleToggleFav}
               />
             )

@@ -2,15 +2,21 @@ import React from 'react'
 
 import FavIcon from './fav-icon'
 
-export default function bookItem({ book, handleToggleFav }) {
+export default function bookItem({
+  isbn,
+  title,
+  author,
+  fav,
+  handleToggleFav,
+}) {
   return (
     <>
-      <tr key={book.isbn}>
-        <td>{book.isbn}</td>
-        <td>{book.title}</td>
-        <td>{book.author}</td>
+      <tr>
+        <td>{isbn}</td>
+        <td>{title}</td>
+        <td>{author}</td>
         <td>
-          <FavIcon book={book} handleToggleFav={handleToggleFav} />
+          <FavIcon fav={fav} isbn={isbn} handleToggleFav={handleToggleFav} />
         </td>
       </tr>
     </>
