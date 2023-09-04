@@ -1,11 +1,12 @@
-import { useContext } from 'react'
-import { AuthContext } from '@/context/auth'
+// import { useContext } from 'react'
+// import { AuthContext } from '@/context/auth'
 //在不同頁面之間保持登陸狀態 link元件
 import Link from 'next/link'
+import { useAuth } from '@/hooks/use-auth'
 
 export default function Login() {
   //解構AuthContext中帶的 auth,setAuth
-  const { auth, setAuth } = useContext(AuthContext)
+  const { auth, setAuth } = useAuth()
   return (
     <>
       <h1>會員燈入頁</h1>
