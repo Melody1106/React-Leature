@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import { useAuth } from '@/hooks/use-auth'
 //在不同頁面之間保持登陸狀態 link元件
-import Link from 'next/link'
 
 export default function Profile() {
   //解構auth
