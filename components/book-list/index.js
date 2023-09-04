@@ -49,7 +49,10 @@ function BookList() {
                 title={title}
                 author={author}
                 fav={fav}
-                handleToggleFav={handleToggleFav}
+                // handleToggleFav={handleToggleFav}
+                handleToggleFavByIsbn={() => {
+                  handleToggleFav(isbn)
+                }}
               />
             )
           })}

@@ -7,7 +7,7 @@ export default function bookItem({
   title,
   author,
   fav,
-  handleToggleFav,
+  handleToggleFavByIsbn,
 }) {
   return (
     <>
@@ -16,7 +16,11 @@ export default function bookItem({
         <td>{title}</td>
         <td>{author}</td>
         <td>
-          <FavIcon fav={fav} isbn={isbn} handleToggleFav={handleToggleFav} />
+          <FavIcon
+            fav={fav}
+            isbn={isbn}
+            handleToggleFavByIsbn={handleToggleFavByIsbn}
+          />
         </td>
       </tr>
     </>

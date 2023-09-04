@@ -6,15 +6,13 @@ import bookmarkIconFill from '@/assets/bookmark-fill.svg'
 // 空心圖
 import bookmarkIcon from '@/assets/bookmark.svg'
 
-export default function FavIcon({ fav, isbn, handleToggleFav }) {
+export default function FavIcon({ fav, handleToggleFavByIsbn }) {
   return (
     <>
       <Image
         src={fav ? bookmarkIconFill : bookmarkIcon}
         alt=""
-        onClick={() => {
-          handleToggleFav(isbn)
-        }}
+        onClick={handleToggleFavByIsbn}
       />
     </>
   )
