@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styles from './todo.module.css'
+import AddForm from './add-form'
+import List from './list'
 
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
@@ -63,22 +65,7 @@ export default function TodoIndex() {
 
   return (
     <>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value)
-        }}
-        onKeyDown={(e) => {
-          // 仿照資料庫id遞增的作法(只限於id是數字)
-          if (e.key === 'Enter') {
-            handleAdd(e.target.value)
-
-            setInputValue('')
-            // 清空文字輸入框
-          }
-        }}
-      />
+      <AddForm handleAdd={handleAdd} />
       <br />
       <input
         type="checkbox"
@@ -90,7 +77,12 @@ export default function TodoIndex() {
       />
       {''}
       全選
-      <ul>
+      <List
+        todos={todos}
+        handleRemove={handleRemove}
+        handleToggleCompleted={handleToggleCompleted}
+      />
+      {/* <ul>
         {todos.map((v, i) => {
           return (
             <li key={v.id}>
@@ -117,7 +109,7 @@ export default function TodoIndex() {
             </li>
           )
         })}
-      </ul>
+      </ul> */}
     </>
   )
 }
