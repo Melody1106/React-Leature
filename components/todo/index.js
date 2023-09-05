@@ -1,13 +1,26 @@
 import React, { useState } from 'react'
+import styles from './todo.module.css'
 
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
   const [inputValue, setInputValue] = useState('')
   const [todos, setTodos] = useState([
     //每個todo={id:number,text:string}
-    { id: 1, text: '買牛奶' },
-    { id: 2, text: '學react' },
+    { id: 1, text: '買牛奶', complete: true },
+    { id: 2, text: '學react', complete: false },
   ])
+
+  const toggleCompleted = (todos, id) => {
+    return todos.map((v) => {
+      //展開城市如果
+      if (v.id === id) return { ...v, completed: !v.completed }
+      else return { ...v }
+    })
+    //3
+  }
+  const handleTogglecompleted = (id) => {
+    setTodos(toggleCompleted(todos, id))
+  }
 
   return (
     <>
@@ -35,7 +48,24 @@ export default function TodoIndex() {
       />
       <ul>
         {todos.map((v, i) => {
-          return <li key={v.id}>{v.text}</li>
+          return (
+            <li key={v.id}>
+              <input
+                type="checkbox"
+                checked={v.complete}
+                onChange={(e) => {
+                  //真變假 假變真
+                  handleTogglecompleted(v.id)
+                }}
+              />
+
+              <span
+                className={v.complete ? styles['completed'] : styles['active']}
+              >
+                {v.text}
+              </span>
+            </li>
+          )
         })}
       </ul>
     </>
