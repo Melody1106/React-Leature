@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import styles from './todo.module.css'
 import AddForm from './add-form'
 import List from './list'
 
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
-  const [inputValue, setInputValue] = useState('')
   //全選專用狀態
   const [selectAll, setSelectAll] = useState(false)
 
@@ -42,7 +40,7 @@ export default function TodoIndex() {
   // 依傳入isSelectedAll(布林值)進行切換所有completed屬性改變
   const toggleSelectedAll = (todos, isSelectedAll = false) => {
     return todos.map((v) => {
-      return { ...v, completed: isSelectedAll }
+      return { ...v, complete: isSelectedAll }
     })
   }
 
