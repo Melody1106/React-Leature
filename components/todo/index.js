@@ -10,14 +10,38 @@ export default function TodoIndex() {
     { id: 2, text: '學react', complete: false },
   ])
 
+  const add = (todos, text) => {
+    const ids = todos.map((v) => v.id)
+    // 有資料取最大值+1當新id，沒資料用1開始
+    const newId = todos.length > 0 ? Math.max(...ids) + 1 : 1
+
+    const newTodo = { id: newId, text: text, complete: false }
+    // 有資料取最大值+1當新id，沒資料用1開始
+    return [newTodo, ...todos]
+  }
+
+  //刪除
+  const remove = (todos, id) => {
+    return todos.filter((v) => v.id !== id)
+  }
+
   const toggleCompleted = (todos, id) => {
     return todos.map((v) => {
       //展開城市如果
-      if (v.id === id) return { ...v, completed: !v.completed }
+      if (v.id === id) return { ...v, complete: !v.complete }
       else return { ...v }
     })
     //3
   }
+
+  const handleAdd = (text) => {
+    setTodos(add(todos, text))
+  }
+
+  const handleRemove = (id) => {
+    setTodos(remove(todos, id))
+  }
+
   const handleTogglecompleted = (id) => {
     setTodos(toggleCompleted(todos, id))
   }
@@ -33,13 +57,7 @@ export default function TodoIndex() {
         onKeyDown={(e) => {
           // 仿照資料庫id遞增的作法(只限於id是數字)
           if (e.key === 'Enter') {
-            const ids = todos.map((v) => v.id)
-            // 有資料取最大值+1當新id，沒資料用1開始
-            const newId = todos.length > 0 ? Math.max(...ids) + 1 : 1
-
-            const newTodo = { id: newId, text: inputValue }
-            // 有資料取最大值+1當新id，沒資料用1開始
-            setTodos([newTodo, ...todos])
+            handleAdd(e.target.value)
 
             setInputValue('')
             // 清空文字輸入框
@@ -64,6 +82,13 @@ export default function TodoIndex() {
               >
                 {v.text}
               </span>
+              <button
+                onClick={() => {
+                  handleRemove(v.id)
+                }}
+              >
+                X
+              </button>
             </li>
           )
         })}
