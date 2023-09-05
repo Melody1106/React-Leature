@@ -4,6 +4,9 @@ import styles from './todo.module.css'
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
   const [inputValue, setInputValue] = useState('')
+  //全選專用狀態
+  const [selectAll, setSelectAll] = useState(false)
+
   const [todos, setTodos] = useState([
     //每個todo={id:number,text:string}
     { id: 1, text: '買牛奶', complete: true },
@@ -34,6 +37,13 @@ export default function TodoIndex() {
     //3
   }
 
+  // 依傳入isSelectedAll(布林值)進行切換所有completed屬性改變
+  const toggleSelectedAll = (todos, isSelectedAll = false) => {
+    return todos.map((v) => {
+      return { ...v, completed: isSelectedAll }
+    })
+  }
+
   const handleAdd = (text) => {
     setTodos(add(todos, text))
   }
@@ -42,9 +52,14 @@ export default function TodoIndex() {
     setTodos(remove(todos, id))
   }
 
-  const handleTogglecompleted = (id) => {
+  const handleToggleCompleted = (id) => {
     setTodos(toggleCompleted(todos, id))
   }
+
+  const handleToggleSelectedAll = (isSelectedAll) => {
+    setTodos(toggleSelectedAll(todos, isSelectedAll))
+  }
+  // -----------------------------------------------
 
   return (
     <>
@@ -64,6 +79,17 @@ export default function TodoIndex() {
           }
         }}
       />
+      <br />
+      <input
+        type="checkbox"
+        checked={selectAll}
+        onChange={(e) => {
+          setSelectAll(e.target.checked)
+          handleToggleSelectedAll(e.target.checked)
+        }}
+      />
+      {''}
+      全選
       <ul>
         {todos.map((v, i) => {
           return (
@@ -73,10 +99,9 @@ export default function TodoIndex() {
                 checked={v.complete}
                 onChange={(e) => {
                   //真變假 假變真
-                  handleTogglecompleted(v.id)
+                  handleToggleCompleted(v.id)
                 }}
               />
-
               <span
                 className={v.complete ? styles['completed'] : styles['active']}
               >
