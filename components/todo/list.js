@@ -1,33 +1,21 @@
 import React from 'react'
 import styles from './todo.module.css'
+import Item from './item'
 
 export default function List({ todos, handleRemove, handleToggleCompleted }) {
   return (
     <ul>
       {todos.map((v, i) => {
+        const { id, complete, text } = v
         return (
-          <li key={v.id}>
-            <input
-              type="checkbox"
-              checked={v.complete}
-              onChange={(e) => {
-                //真變假 假變真
-                handleToggleCompleted(v.id)
-              }}
-            />
-            <span
-              className={v.complete ? styles['completed'] : styles['active']}
-            >
-              {v.text}
-            </span>
-            <button
-              onClick={() => {
-                handleRemove(v.id)
-              }}
-            >
-              X
-            </button>
-          </li>
+          <Item
+            key={id}
+            id={id}
+            complete={complete}
+            text={text}
+            handleToggleCompleted={handleToggleCompleted}
+            handleRemove={handleRemove}
+          />
         )
       })}
     </ul>
