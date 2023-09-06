@@ -6,6 +6,7 @@ export default function Item({
   complete,
   text,
   handleToggleCompleted,
+  handleToggleEditing,
   handleRemove,
 }) {
   return (
@@ -22,6 +23,13 @@ export default function Item({
         <span className={complete ? styles['completed'] : styles['active']}>
           {text}
         </span>
+        <button
+          onClick={() => {
+            handleToggleEditing(id)
+          }}
+        >
+          編輯
+        </button>
         <button
           onClick={() => {
             handleRemove(id)

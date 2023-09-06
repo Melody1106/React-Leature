@@ -14,8 +14,9 @@ export default function TodoIndex() {
 
   const [todos, setTodos] = useState([
     //每個todo={id:number,text:string}
-    { id: 1, text: '買牛奶', complete: true },
-    { id: 2, text: '學react', complete: false },
+    //加入編輯狀態 擴充editing
+    { id: 1, text: '買牛奶', complete: true, editing:true, },
+    { id: 2, text: '學react', complete: false,editing:false, },
   ])
 
   const filterTodos=(todos,filterType)=>{
@@ -31,7 +32,7 @@ export default function TodoIndex() {
     // 有資料取最大值+1當新id，沒資料用1開始
     const newId = todos.length > 0 ? Math.max(...ids) + 1 : 1
 
-    const newTodo = { id: newId, text: text, complete: false }
+    const newTodo = { id: newId, text: text, complete: false,editing:false, }
     // 有資料取最大值+1當新id，沒資料用1開始
     return [newTodo, ...todos]
   }
@@ -48,6 +49,27 @@ export default function TodoIndex() {
       else return { ...v }
     })
     //3
+  }
+
+  //依傳入id進行editing屬性改變
+  //同時之間只能有一個editing: true
+  const toggleEditing = (todos, id) => {
+    return todos.map((v) => {
+      if (v.id === id) return { ...v, editing: true }
+      else return { ...v, editing:false }
+      //其他非editing: true都是editing: false
+    })
+    //3
+  }
+
+  //id進行更新text
+  //注意:更新完成後 editing改為false
+  const updateText =(rodos, id ,text)=>{
+    return todos.map((v) => {
+      if (v.id === id) return { ...v, text: text,editing:false }
+      else return { ...v }
+  
+    })
   }
 
   // 依傳入isSelectedAll(布林值)進行切換所有completed屬性改變
@@ -72,6 +94,15 @@ export default function TodoIndex() {
   const handleToggleSelectedAll = (isSelectedAll) => {
     setTodos(toggleSelectedAll(todos, isSelectedAll))
   }
+
+  const handleToggleEditing = (id) => {
+    setTodos(toggleEditing(todos, id))
+  }
+
+  const handleUpdateText = (id, text)=>{
+    setTodos(updateText(todos, id,text))
+  }
+  
   // -----------------------------------------------
 
   return (
@@ -93,6 +124,8 @@ export default function TodoIndex() {
         todos={filterTodos(todos,filterType)}
         handleRemove={handleRemove}
         handleToggleCompleted={handleToggleCompleted}
+        handleToggleEditing ={handleToggleEditing}
+        handleUpdateText={ handleUpdateText}
       />
      <hr/>
      {filterOptions.map((v,i)=>{
