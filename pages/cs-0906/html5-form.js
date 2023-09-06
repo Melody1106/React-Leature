@@ -7,6 +7,9 @@ export default function Html5Form() {
   //food的值只會有四者其一 : '三明治', '貝果', '佛卡夏', ''
   const [food, setFood] = useState('')
   //初始值為空白字串代表都沒選中
+
+  const fruitOptions = ['西瓜', '芒果']
+  const [fruits, setFruits] = useState(['芒果'])
   return (
     <>
       <h1>可控表單元件</h1>
@@ -42,6 +45,37 @@ export default function Html5Form() {
                 onChange={(e) => {
                   setFood(e.target.value)
                   //狀態紀錄的是每個選項傳送的值
+                }}
+              />
+              {v}
+            </label>
+          )
+        })}
+      </section>
+      <section id="checkbox-group">
+        <h2>核取方塊群組(checkbox-group)</h2>
+        {fruitOptions.map((v, i) => {
+          return (
+            <label key={i}>
+              <input
+                type="checkbox"
+                checked={fruits.includes(v)}
+                value={v}
+                onChange={(e) => {
+                  const targetValue = e.target.value
+
+                  // 判斷是否在fruits狀態陣列中
+                  if (fruits.includes(targetValue)) {
+                    // 如果是 -> 移出陣列
+                    // 1 2
+                    const newFruits = fruits.filter((v2) => v2 !== targetValue)
+                    // 3
+                    setFruits(newFruits)
+                  } else {
+                    // 否則 -> 加入陣列
+                    // 1 2 3
+                    setFruits([...fruits, targetValue])
+                  }
                 }}
               />
               {v}
