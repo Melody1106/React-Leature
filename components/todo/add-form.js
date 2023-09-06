@@ -1,24 +1,29 @@
 import { useState } from 'react'
 
 export default function AddForm({ handleAdd }) {
+  //  可控表單元素，宣告專門給文字輸入框使用的狀態
   const [inputValue, setInputValue] = useState('')
 
   return (
-    <input
-      type="text"
-      value={inputValue}
-      onChange={(e) => {
-        setInputValue(e.target.value)
-      }}
-      onKeyDown={(e) => {
-        // 仿照資料庫id遞增的作法(只限於id是數字)
-        if (e.key === 'Enter') {
-          handleAdd(e.target.value)
+    <>
+      <input
+        type="text"
+        // 可控表單元件: value聯結到某狀態
+        value={inputValue}
+        // 可控表單元件: onChange事件能更動到那個連結的狀態
+        onChange={(e) => {
+          setInputValue(e.target.value)
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            // 新增項目到todos狀態中
+            handleAdd(e.target.value)
 
-          setInputValue('')
-          // 清空文字輸入框
-        }
-      }}
-    />
+            // 清空文字輸入框
+            setInputValue('')
+          }
+        }}
+      />
+    </>
   )
 }
