@@ -14,6 +14,19 @@ export default function Html5Form() {
 
   const fruitOptions = ['西瓜', '芒果']
   const [fruits, setFruits] = useState(['芒果'])
+
+  //select
+  const cityOptions = [
+    '台北市',
+    '新北市',
+    '桃園市',
+    '台中市',
+    '台南市',
+    '高雄市',
+  ]
+
+  const [city, setCity] = useState('')
+
   return (
     <>
       <h1>可控表單元件</h1>
@@ -101,6 +114,24 @@ export default function Html5Form() {
             </label>
           )
         })}
+      </section>
+      <section id="select">
+        <h2>下拉清單 select</h2>
+        <select
+          value={city}
+          onChange={(e) => {
+            setCity(e.target.value)
+          }}
+        >
+          <option value="">--請選擇--</option>
+          {cityOptions.map((v, i) => {
+            return (
+              <option key={i} value={v}>
+                {v}
+              </option>
+            )
+          })}
+        </select>
       </section>
     </>
   )
