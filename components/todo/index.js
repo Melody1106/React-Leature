@@ -6,22 +6,22 @@ import List from './list'
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
   //全選專用狀態
-   const [selectAll, setSelectAll] = useState(false)
-   //過濾類型用狀態
-   // 值 只能是三者之一 所有|進行中|已完成
-   const [filterType, setFilterType] = useState('All')
-   const filterOptions=['All', 'Ing', 'Done']
+  const [selectAll, setSelectAll] = useState(false)
+  //過濾類型用狀態
+  // 值 只能是三者之一 所有|進行中|已完成
+  const [filterType, setFilterType] = useState('All')
+  const filterOptions = ['All', 'Ing', 'Done']
 
   const [todos, setTodos] = useState([
     //每個todo={id:number,text:string}
     //加入編輯狀態 擴充editing
-    { id: 1, text: '買牛奶', complete: true, editing:true, },
-    { id: 2, text: '學react', complete: false,editing:false, },
+    { id: 1, text: '買牛奶', complete: true, editing: true },
+    { id: 2, text: '學react', complete: false, editing: false },
   ])
 
-  const filterTodos=(todos,filterType)=>{
-    if(filterType === 'Done') return todos.filter((v)=> v.complete === true)
-    if(filterType === 'Ing') return todos.filter((v)=> v.complete === false)
+  const filterTodos = (todos, filterType) => {
+    if (filterType === 'Done') return todos.filter((v) => v.complete === true)
+    if (filterType === 'Ing') return todos.filter((v) => v.complete === false)
 
     //預設"all"-不過濾
     return todos
@@ -32,7 +32,7 @@ export default function TodoIndex() {
     // 有資料取最大值+1當新id，沒資料用1開始
     const newId = todos.length > 0 ? Math.max(...ids) + 1 : 1
 
-    const newTodo = { id: newId, text: text, complete: false,editing:false, }
+    const newTodo = { id: newId, text: text, complete: false, editing: false }
     // 有資料取最大值+1當新id，沒資料用1開始
     return [newTodo, ...todos]
   }
@@ -44,7 +44,6 @@ export default function TodoIndex() {
 
   const toggleCompleted = (todos, id) => {
     return todos.map((v) => {
-      //展開城市如果
       if (v.id === id) return { ...v, complete: !v.complete }
       else return { ...v }
     })
@@ -56,7 +55,7 @@ export default function TodoIndex() {
   const toggleEditing = (todos, id) => {
     return todos.map((v) => {
       if (v.id === id) return { ...v, editing: true }
-      else return { ...v, editing:false }
+      else return { ...v, editing: false }
       //其他非editing: true都是editing: false
     })
     //3
@@ -64,11 +63,10 @@ export default function TodoIndex() {
 
   //id進行更新text
   //注意:更新完成後 editing改為false
-  const updateText =(rodos, id ,text)=>{
+  const updateText = (todos, id, text) => {
     return todos.map((v) => {
-      if (v.id === id) return { ...v, text: text,editing:false }
+      if (v.id === id) return { ...v, text: text, editing: false }
       else return { ...v }
-  
     })
   }
 
@@ -99,10 +97,10 @@ export default function TodoIndex() {
     setTodos(toggleEditing(todos, id))
   }
 
-  const handleUpdateText = (id, text)=>{
-    setTodos(updateText(todos, id,text))
+  const handleUpdateText = (id, text) => {
+    setTodos(updateText(todos, id, text))
   }
-  
+
   // -----------------------------------------------
 
   return (
@@ -121,22 +119,28 @@ export default function TodoIndex() {
       全選
       <List
         //todos={todos} //過濾功能 列表呈現項目 需先經過類型過濾再呈現，非原本狀態
-        todos={filterTodos(todos,filterType)}
+        todos={filterTodos(todos, filterType)}
         handleRemove={handleRemove}
         handleToggleCompleted={handleToggleCompleted}
-        handleToggleEditing ={handleToggleEditing}
-        handleUpdateText={ handleUpdateText}
+        handleToggleEditing={handleToggleEditing}
+        handleUpdateText={handleUpdateText}
       />
-     <hr/>
-     {filterOptions.map((v,i)=>{
-      return <button key={i} 
-      onClick={()=>{
-        setFilterType(v)
-      }}
-       className={
-       filterType === v ?  styles['btn-active'] : styles['btn-normal']
-        }>{v}</button> 
-     })}
+      <hr />
+      {filterOptions.map((v, i) => {
+        return (
+          <button
+            key={i}
+            onClick={() => {
+              setFilterType(v)
+            }}
+            className={
+              filterType === v ? styles['btn-active'] : styles['btn-normal']
+            }
+          >
+            {v}
+          </button>
+        )
+      })}
     </>
   )
 }

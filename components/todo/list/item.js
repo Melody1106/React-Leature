@@ -11,27 +11,29 @@ export default function Item({
 }) {
   return (
     <>
-      <li key={id}>
+      <li>
         <input
           type="checkbox"
           checked={complete}
-          onChange={() => {
+          onChange={(e) => {
+            // 這裡要作toggle completed狀態的動作
             //真變假 假變真
             handleToggleCompleted(id)
           }}
         />
-        <span className={complete ? styles['completed'] : styles['active']}>
-          {text}
-        </span>
-        <button
-          onClick={() => {
+        <span
+          onDoubleClick={() => {
+            // 這裡作切換進入編輯狀態的動作
             handleToggleEditing(id)
           }}
+          className={complete ? styles['completed'] : styles['active']}
         >
-          編輯
-        </button>
+          {text}
+        </span>
+
         <button
           onClick={() => {
+            // 這裡作刪除的動作
             handleRemove(id)
           }}
         >

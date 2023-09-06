@@ -16,7 +16,6 @@ export default function EditForm({ id, text, handleUpdateText }) {
           }
         }}
       />
-      <button>褚存</button>
     </>
   )
 }
