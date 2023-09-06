@@ -7,3 +7,13 @@
     text-decoration: line-through;
     font-style: italic
 }
+
+.btn-active{
+    background: #0080ff;
+    color: #fff;
+    border:1px solid #0080ff;
+}
+.btn-normal{
+    background: #fff;
+    border:0px ;
+}

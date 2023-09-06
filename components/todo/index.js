@@ -1,17 +1,30 @@
 import React, { useState } from 'react'
+import styles from './todo.module.css'
 import AddForm from './add-form'
 import List from './list'
 
 export default function TodoIndex() {
   //  可控表單元素，宣告一個專門給文字輸入框使用的狀態
   //全選專用狀態
-  const [selectAll, setSelectAll] = useState(false)
+   const [selectAll, setSelectAll] = useState(false)
+   //過濾類型用狀態
+   // 值 只能是三者之一 所有|進行中|已完成
+   const [filterType, setFilterType] = useState('All')
+   const filterOptions=['All', 'Ing', 'Done']
 
   const [todos, setTodos] = useState([
     //每個todo={id:number,text:string}
     { id: 1, text: '買牛奶', complete: true },
     { id: 2, text: '學react', complete: false },
   ])
+
+  const filterTodos=(todos,filterType)=>{
+    if(filterType === 'Done') return todos.filter((v)=> v.complete === true)
+    if(filterType === 'Ing') return todos.filter((v)=> v.complete === false)
+
+    //預設"all"-不過濾
+    return todos
+  }
 
   const add = (todos, text) => {
     const ids = todos.map((v) => v.id)
@@ -67,47 +80,30 @@ export default function TodoIndex() {
       <br />
       <input
         type="checkbox"
-        checked={selectAll}
+        // checked={selectAll}
         onChange={(e) => {
-          setSelectAll(e.target.checked)
+          // setSelectAll(e.target.checked)
           handleToggleSelectedAll(e.target.checked)
         }}
       />
       {''}
       全選
       <List
-        todos={todos}
+        //todos={todos} //過濾功能 列表呈現項目 需先經過類型過濾再呈現，非原本狀態
+        todos={filterTodos(todos,filterType)}
         handleRemove={handleRemove}
         handleToggleCompleted={handleToggleCompleted}
       />
-      {/* <ul>
-        {todos.map((v, i) => {
-          return (
-            <li key={v.id}>
-              <input
-                type="checkbox"
-                checked={v.complete}
-                onChange={(e) => {
-                  //真變假 假變真
-                  handleToggleCompleted(v.id)
-                }}
-              />
-              <span
-                className={v.complete ? styles['completed'] : styles['active']}
-              >
-                {v.text}
-              </span>
-              <button
-                onClick={() => {
-                  handleRemove(v.id)
-                }}
-              >
-                X
-              </button>
-            </li>
-          )
-        })}
-      </ul> */}
+     <hr/>
+     {filterOptions.map((v,i)=>{
+      return <button key={i} 
+      onClick={()=>{
+        setFilterType(v)
+      }}
+       className={
+       filterType === v ?  styles['btn-active'] : styles['btn-normal']
+        }>{v}</button> 
+     })}
     </>
   )
 }

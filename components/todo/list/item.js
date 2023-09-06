@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './todo.module.css'
+import styles from '../todo.module.css'
 
 export default function Item({
   id,
