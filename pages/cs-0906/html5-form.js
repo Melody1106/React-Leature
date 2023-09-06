@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 
 export default function Html5Form() {
   const [inputText, setInputText] = useState('')
+
+  //密碼狀態切換
+  const [show, setShow] = useState('')
+
   const [textareaText, setTextAreaText] = useState('')
   const foodOptions = ['三明治', '貝果', '佛卡夏']
   //food的值只會有四者其一 : '三明治', '貝果', '佛卡夏', ''
@@ -22,6 +26,21 @@ export default function Html5Form() {
             setInputText(e.target.value)
           }}
         />
+        <h2>密碼輸入框</h2>
+        <input
+          type={show ? 'show' : 'password'}
+          value={inputText}
+          onChange={(e) => {
+            setInputText(e.target.value)
+          }}
+        />
+        <button
+          onClick={() => {
+            setShow(!show)
+          }}
+        >
+          {show ? '顯示' : '隱藏'}
+        </button>
       </section>
       <section id="textarea">
         <h2>文字輸入區域(textarea)</h2>.
