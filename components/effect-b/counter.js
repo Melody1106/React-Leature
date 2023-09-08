@@ -1,15 +1,10 @@
 //導入react中使用狀態勾子
 import { useEffect, useState } from 'react'
 
-export default function Counter({ initCount, name }) {
+export default function Counter({ count, name }) {
   //宣告狀態
   // [獲得值的變數, 設定值的函式] = useState(初始值)
   const [total, setTotal] = useState(0)
-
-  //當initCount(屬性)有變化時，就會做一次setTotal
-  useEffect(() => {
-    setTotal(initCount)
-  }, [initCount])
 
   //didMount + didUpdate
   //一開始會執行一次
@@ -20,20 +15,29 @@ export default function Counter({ initCount, name }) {
   //     console.log('name 改變了', props.name)
   //   }, [props])
 
+  useEffect(() => {
+    setTotal(count)
+    console.log('count 改變了', count)
+  }, [count])
+
+  // didMount + didUpdate
+  useEffect(() => {
+    console.log('count改變了', count.total)
+  }, [count])
+
+  // didMount + didUpdate
+  useEffect(() => {
+    console.log('count.total改變了', count.total)
+  }, [count.total])
+
   //渲染情形
   console.log('render')
 
   //即使props是物件，由於effect是與re-render相關才會執行，所以要理解的是react如何進行render
   return (
     <>
-      <h1>{total}</h1>
-      <button
-        onClick={() => {
-          setTotal(total + 1)
-        }}
-      >
-        +1
-      </button>
+      <h1>{count.total}</h1>
+
       <h2>{name}</h2>
     </>
   )
