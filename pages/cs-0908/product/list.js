@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 //https://my-json-server.typicode.com/eyesofkids/json-fake-data/products
 export default function List() {
@@ -26,7 +27,16 @@ export default function List() {
       <ul>
         {/* 以下程式實際上要執行2次，第一次為空值 。第二次才有真正的值*/}
         {products.map((v, i) => {
-          return <li key={v.id}>{v.name}</li>
+          return (
+            <li key={v.id}>
+              <Link
+                href={`https://my-json-server.typicode.com/eyesofkids/json-fake-data/products/${v.id}`}
+              >
+                {' '}
+                {v.name}
+              </Link>
+            </li>
+          )
         })}
       </ul>
     </>
