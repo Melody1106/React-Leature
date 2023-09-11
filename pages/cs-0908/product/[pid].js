@@ -85,10 +85,14 @@ export default function Detail() {
     <>
       <h1>商品詳細頁</h1>
       <div>{isLoading ? loader : productDate}</div>
-      <li>
-        <Link href="/cs-0908/product/3">相關商品id=3</Link>
-        <Link href="/cs-0908/product/1">相關商品id=1</Link>
-      </li>
+      <ul>
+        <li>
+          <Link href="/cs-0908/product/3">相關商品id=3</Link>
+        </li>
+        <li>
+          <Link href="/cs-0908/product/1">相關商品id=1</Link>
+        </li>
+      </ul>
     </>
   )
 }
