@@ -3,7 +3,7 @@
 //在不同頁面之間保持登陸狀態 link元件
 import { useState } from 'react'
 import Link from 'next/link'
-import { useAuth } from '@/hooks/use-auth'
+// import { useAuth } from '@/hooks/use-auth'
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -18,8 +18,14 @@ export default function Login() {
     password: '',
   }
 
+  //密碼顯示隱藏
+  const [show, setShow] = useState(false)
+
   //記錄錯誤訊息用狀態
   const [errors, setErrors] = useState(originErrors)
+
+  //解構AuthContext中帶的 auth,setAuth
+  const [auth, setAuth] = useState(false)
 
   const handleFieldChange = (e) => {
     const newUser = { ...user, [e.target.name]: e.target.value }
@@ -45,15 +51,20 @@ export default function Login() {
       hasErrors = true
     }
 
+    if (user.account !== 'user123' || user.password !== '123456') {
+      newErrors.account = '錯誤account'
+      newErrors.password = '錯誤password'
+      hasErrors = true
+    }
+
     if (hasErrors) {
       setErrors(newErrors)
       return //return跳出提供函式
     }
+    setAuth(true)
   }
 
-  //解構AuthContext中帶的 auth,setAuth
-  const { auth, setAuth } = useAuth()
-  return (
+  const loginForm = (
     <>
       <h1>會員燈入頁</h1>
       {/* <p>目前登入狀態:{auth.isAuth ? '登入中' : '未登入'}</p> */}
@@ -67,36 +78,45 @@ export default function Login() {
             onChange={handleFieldChange}
           />
         </label>
+        <br />
         <span>{errors.account}</span>
 
         <br />
         <label>
           密碼:
           <input
-            type="password"
+            type={show ? 'text' : 'password'}
             name="password"
             value={user.password}
             onChange={handleFieldChange}
           />
         </label>
+        <input
+          type="checkbox"
+          onChange={() => {
+            setShow(!show)
+          }}
+        />
+        {show ? '隱藏' : '顯示'}
+        <br />
         <span>{errors.password}</span>
         <br />
-        <button
-          onClick={() => {
-            setAuth({
-              isAuth: true,
-              userData: {
-                id: 1,
-                account: 'user123',
-                password: '123456',
-              },
-            })
-          }}
-        >
-          登入
-        </button>
+        <button>登入</button>
       </form>
       {/* <Link href="/cs-0904/user/profile">資料頁(Link)</Link> */}
     </>
   )
+
+  const logoutForm = (
+    <>
+      <button
+        onClick={() => {
+          setAuth(false)
+        }}
+      >
+        登出
+      </button>
+    </>
+  )
+  return <>{auth ? logoutForm : loginForm}</>
 }
