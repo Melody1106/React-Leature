@@ -1,0 +1,58 @@
+
+.container{
+    background-color: #ededed;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weatherCard{
+    position: relative;
+    min-width: 360px;
+    box-shadow: 0 1px 3px 0 #999999;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    padding: 30px 15px;
+}
+.location{
+    font-size: 28px;
+  color: #212121;
+  margin-bottom: 20px;
+}
+.description{
+    font-size: 18px;
+}
+.currentWeather{
+    display: flex;
+}
+.tempature{
+    color: #757575;
+    font-size: 96px;
+    font-weight: 300;
+    display: flex;
+}
+.celsius{
+    font-weight: normal;
+    font-size: 42px;
+}
+.airFlow{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: #828282;
+    margin-bottom: 20px;
+}
+.rain{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: #828282;
+}
+.observationTime{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: #828282;
+}
